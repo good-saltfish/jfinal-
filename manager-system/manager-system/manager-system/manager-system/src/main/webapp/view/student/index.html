@@ -1,0 +1,218 @@
+#@student_layout()
+#define main()
+    <div class="row">
+        <!-- 快速导航卡片 -->
+        <div class="col-md-4 mb-4">
+            <div class="quick-nav-card card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">快速导航</h5>
+                    <div class="nav-links">
+                        <a href="/student/course" class="nav-link-item">
+                            <i class="fas fa-book"></i>
+                            <span>我的课程</span>
+                        </a>
+                        <a href="/student/schedule" class="nav-link-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>课程表</span>
+                        </a>
+                        <a href="/student/notification" class="nav-link-item">
+                            <i class="fas fa-bell"></i>
+                            <span>通知消息</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 今日课程卡片 -->
+        <div class="col-md-8 mb-4">
+            <div class="today-courses-card card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">今日课程</h5>
+                    #if(todayCourses && todayCourses.size() > 0)
+                        #for(course : todayCourses)
+                        <div class="course-item">
+                            <div class="time-badge">#(course.class_time)</div>
+                            <div class="course-info">
+                                <div class="course-name">#(course.course_name)</div>
+                                <div class="course-detail">
+                                    <i class="fas fa-map-marker-alt"></i> #(course.classroom)
+                                </div>
+                            </div>
+                        </div>
+                        #end
+                    #else
+                        <div class="no-course">
+                            <i class="fas fa-coffee"></i>
+                            <p>今天没有课程，好好休息！</p>
+                        </div>
+                    #end
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+#define css()
+<style>
+/* 欢迎卡片样式 */
+.welcome-card {
+    background: linear-gradient(135deg, #6B8DD6 0%, #8E37D7 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.welcome-avatar {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-avatar i {
+    font-size: 30px;
+}
+
+.welcome-title {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.welcome-text {
+    opacity: 0.9;
+}
+
+/* 快速导航卡片样式 */
+.quick-nav-card {
+    border-radius: 15px;
+    transition: transform 0.3s;
+}
+
+.quick-nav-card:hover {
+    transform: translateY(-5px);
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.nav-link-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+    color: #495057;
+    text-decoration: none;
+    transition: all 0.3s;
+    background: #f8f9fa;
+}
+
+.nav-link-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+    color: #0d6efd;
+}
+
+.nav-link-item i {
+    font-size: 20px;
+    margin-right: 15px;
+    width: 25px;
+    text-align: center;
+}
+
+/* 今日课程卡片样式 */
+.today-courses-card {
+    border-radius: 15px;
+}
+
+.course-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    transition: transform 0.3s;
+}
+
+.course-item:hover {
+    transform: translateX(5px);
+    background: #e9ecef;
+}
+
+.time-badge {
+    padding: 8px 12px;
+    background: #0d6efd;
+    color: white;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    margin-right: 15px;
+}
+
+.course-info {
+    flex-grow: 1;
+}
+
+.course-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.course-detail {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.course-detail i {
+    margin-right: 5px;
+}
+
+.no-course {
+    text-align: center;
+    padding: 30px;
+    color: #6c757d;
+}
+
+.no-course i {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* 动画效果 */
+.card {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.watermark {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: #6c757d;
+    opacity: 0.6;
+}
+</style>
+#end
+
+<!-- 添加水印 -->
+<div class="watermark">
+    © 2024 开发者：zyh
+</div>
+#end

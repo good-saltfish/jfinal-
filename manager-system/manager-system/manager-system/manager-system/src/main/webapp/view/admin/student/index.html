@@ -1,0 +1,40 @@
+#@admin_layout()
+#define main()
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title float-left">学生管理</h3>
+        <a href="/admin/student/add" class="btn btn-primary float-right">添加学生</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            #for(student : studentPage.getList())
+            <tr>
+                <td>#(student.student_no)</td>
+                <td>#(student.name)</td>
+                <td>#(student.gender)</td>
+                <td>#(student.age)</td>
+                <td>
+                    <a href="/admin/student/edit/#(student.id)" class="btn btn-sm btn-primary" title="编辑">
+                        <i class="fas fa-edit"></i> 编辑
+                    </a>
+                    <a href="/admin/student/courses/#(student.id)" class="btn btn-sm btn-primary" title="选课管理">
+                        <i class="fas fa-book"></i> 选课
+                    </a>
+                </td>
+            </tr>
+            #end
+            </tbody>
+        </table>
+    </div>
+</div>
+#end 

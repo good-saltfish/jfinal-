@@ -1,0 +1,54 @@
+#@admin_layout()
+#define main()
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">编辑学生</h3>
+    </div>
+    <div class="card-body">
+        <form action="/admin/student/update" method="post">
+            <input type="hidden" name="student.id" value="#(student.id)">
+            <div class="form-group">
+                <label>学号</label>
+                <input type="text" name="student.student_no" value="#(student.student_no)" class="form-control" required>
+                #if(studentNoMsg)
+                <div class="text-danger">#(studentNoMsg)</div>
+                #end
+            </div>
+            <div class="form-group">
+                <label>姓名</label>
+                <input type="text" name="student.name" value="#(student.name)" class="form-control" required>
+                #if(nameMsg)
+                <div class="text-danger">#(nameMsg)</div>
+                #end
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" name="student.password" class="form-control" placeholder="不修改请留空">
+                #if(passwordMsg)
+                <div class="text-danger">#(passwordMsg)</div>
+                #end
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <select name="student.gender" class="form-control">
+                    <option value="M" #if(student.gender == "M")selected#end>男</option>
+                    <option value="F" #if(student.gender == "F")selected#end>女</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>年龄</label>
+                <input type="number" name="student.age" value="#(student.age)" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>邮箱</label>
+                <input type="email" name="student.email" value="#(student.email)" class="form-control">
+                #if(emailMsg)
+                <div class="text-danger">#(emailMsg)</div>
+                #end
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+            <a href="/admin/student" class="btn btn-secondary">返回</a>
+        </form>
+    </div>
+</div>
+#end 

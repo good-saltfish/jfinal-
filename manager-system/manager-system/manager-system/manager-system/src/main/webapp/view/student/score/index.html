@@ -1,0 +1,72 @@
+#@admin_layout()
+#define main()
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">我的成绩</h3>
+        <a href="http://localhost:8080/student/" class="layui-btn layui-btn-primary float-right">返回首页</a>
+    </div>
+    <div class="card-body">
+        <form class="mb-4">
+            <div class="form-row align-items-center">
+                <div class="col-auto">
+                    <label class="mr-2">学期</label>
+                    <select name="semester" class="form-control" onchange="this.form.submit()">
+                        <option value="">全部学期</option>
+                        #for(semester : semesters)
+                        <option value="#(semester)" #if(semester == selectedSemester)selected#end>
+                            #(semester)
+                        </option>
+                        #end
+                    </select>
+                </div>
+            </div>
+        </form>
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>课程代码</th>
+                <th>课程名称</th>
+                <th>学分</th>
+                <th>成绩</th>
+            </tr>
+            </thead>
+            <tbody>
+            #for(score : scorePage.getList())
+            <tr>
+                <td>#(score.course_code)</td>
+                <td>#(score.course_name)</td>
+                <td>#(score.course_credit)</td>
+                <td class="score-cell" data-score="#(score.score)" data-credit="#(score.course_credit)">
+                    #if(score.score < 60)
+                    <span class="text-danger">#(score.score)</span>
+                    #else
+                    <span class="text-success">#(score.score)</span>
+                    #end
+                </td>
+                <td>#(score.semester)</td>
+            </tr>
+            #end
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<style>
+    .alert {
+        border-radius: 8px;
+    }
+    .score-cell {
+        font-weight: 500;
+    }
+    .text-danger {
+        font-weight: bold;
+    }
+    .text-success {
+        color: #28a745;
+    }
+</style>
+#end

@@ -1,0 +1,48 @@
+#@admin_layout()
+#define main()
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title float-left">教师管理</h3>
+        <a href="/admin/teacher/add" class="btn btn-primary float-right">添加教师</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>工号</th>
+                <th>姓名</th>
+                <th>职称</th>
+                <th>电话</th>
+                <th>邮箱</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            #for(teacher : teacherPage.getList())
+            <tr>
+                <td>#(teacher.teacher_no)</td>
+                <td>#(teacher.name)</td>
+                <td>#(teacher.title)</td>
+                <td>#(teacher.phone)</td>
+                <td>#(teacher.email)</td>
+                <td>
+                    <a href="/admin/teacher/edit/#(teacher.id)" class="btn btn-sm btn-info">编辑</a>
+                    <a href="/admin/teacher/delete/#(teacher.id)" class="btn btn-sm btn-danger"
+                       onclick="return confirm('确定要删除吗？')">删除</a>
+                </td>
+            </tr>
+            #end
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <ul class="pagination">
+            #for(index = 0; index < teacherPage.getTotalPage(); index++)
+            <li class="page-item #if(index + 1 == teacherPage.getPageNumber()) active #end">
+                <a class="page-link" href="/admin/teacher?page=#(index + 1)">#(index + 1)</a>
+            </li>
+            #end
+        </ul>
+    </div>
+</div>
+#end

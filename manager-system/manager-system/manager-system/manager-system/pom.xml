@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>student-management</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jfinal.version>5.1.2</jfinal.version>
+    </properties>
+
+    <dependencies>
+        <!-- JFinal -->
+        <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>jfinal</artifactId>
+            <version>${jfinal.version}</version>
+        </dependency>
+
+        <!-- JFinal Undertow -->
+        <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>jfinal-undertow</artifactId>
+            <version>3.5</version>
+        </dependency>
+
+        <!-- Redisson 分布式锁 -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.15.0</version>
+        </dependency>
+        <!-- MySQL 驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+        
+        <!-- Druid 数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.2.18</version>
+        </dependency>
+        
+        <!-- 日志 -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.12</version>
+        </dependency>
+
+        <!-- 文件上传 -->
+        <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>cos</artifactId>
+            <version>2022.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jfinal</groupId>
+            <artifactId>enjoy</artifactId>
+            <version>5.0.3</version> <!-- 请检查是否有更新的版本 -->
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            
+            <!-- 打包插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.example.Application</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project> 

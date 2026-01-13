@@ -1,0 +1,150 @@
+#@student_layout()
+
+#define js()
+#if(oldPasswordMsg || passwordMsg || confirmPasswordMsg)
+<script>
+window.onload = function() {
+    var modal = new bootstrap.Modal(document.getElementById('changePasswordModal'));
+    modal.show();
+    
+    var isSuccess = '#(passwordMsg??)' === 'true' && '#(passwordMsg)'.indexOf('成功') !== -1;
+    if (isSuccess) {
+        setTimeout(function() {
+            modal.hide();
+        }, 3000);
+    }
+};
+</script>
+#end
+#end
+
+#define main()
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">个人资料</h3>
+    </div>
+    <div class="card-body">
+        #if(msg)
+        <div class="alert alert-success">#(msg)</div>
+        #end
+        #if(error)
+        <div class="alert alert-danger">#(error)</div>
+        #end
+        
+        <!-- 头像上传表单 -->
+        <form action="/student/profile/avatar" method="post" enctype="multipart/form-data" id="avatarForm">
+            <div class="text-center mb-4">
+                <div class="avatar-upload">
+                    <img src="#(student.avatar ?? '/static/img/default-avatar.png')" alt="头像" 
+                         style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; cursor: pointer;"
+                         onclick="document.getElementById('avatarInput').click();">
+                    <input type="file" id="avatarInput" name="avatar" accept="image/*" style="display: none;"
+                           onchange="uploadAvatar()">
+                </div>
+                <div class="mt-2 text-muted">点击头像可以上传新头像</div>
+            </div>
+        </form>
+        
+        <!-- 基本信息表单 -->
+        <form action="/student/profile/update" method="post">
+            <div class="form-group">
+                <label>学号</label>
+                <input type="text" value="#(student.student_no)" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>姓名</label>
+                <input type="text" value="#(student.name)" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <input type="text" value="#(student.gender == 'M' ? '男' : '女')" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>手机号</label>
+                <input type="tel" name="student.phone" value="#(student.phone)" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>邮箱</label>
+                <input type="email" name="student.email" value="#(student.email)" class="form-control">
+                #if(emailMsg)
+                <div class="text-danger">#(emailMsg)</div>
+                #end
+            </div>
+            <button type="submit" class="btn btn-primary">保存修改</button>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#changePasswordModal">
+                修改密码
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- 修改密码弹出框 -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">修改密码</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <form action="/student/profile/update" method="post">
+                <div class="modal-body">
+                    #if(passwordMsg)
+                    <div class="alert alert-success">#(passwordMsg)</div>
+                    #end
+                    <div class="form-group">
+                        <label>原密码</label>
+                        <input type="password" name="old_password" class="form-control" required>
+                        #if(oldPasswordMsg)
+                        <div class="text-danger">#(oldPasswordMsg)</div>
+                        #end
+                    </div>
+                    <div class="form-group">
+                        <label>新密码</label>
+                        <input type="password" name="student.password" class="form-control" required>
+                        #if(passwordMsg && !passwordMsg.contains("成功"))
+                        <div class="text-danger">#(passwordMsg)</div>
+                        #end
+                    </div>
+                    <div class="form-group">
+                        <label>确认新密码</label>
+                        <input type="password" name="confirm_password" class="form-control" required>
+                        #if(confirmPasswordMsg)
+                        <div class="text-danger">#(confirmPasswordMsg)</div>
+                        #end
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">确认修改</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function uploadAvatar() {
+    var formData = new FormData(document.getElementById('avatarForm'));
+    $.ajax({
+        url: '/student/profile/avatar',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if(response.success) {
+                // 刷新页面以显示新头像
+                location.reload();
+            } else {
+                alert('上传失败：' + response.msg);
+            }
+        },
+        error: function() {
+            alert('上传失败，请稍后重试');
+        }
+    });
+}
+</script>
+#end 

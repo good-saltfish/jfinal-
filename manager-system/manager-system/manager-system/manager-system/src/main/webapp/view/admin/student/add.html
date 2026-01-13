@@ -1,0 +1,53 @@
+#@admin_layout()
+#define main()
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">添加学生</h3>
+    </div>
+    <div class="card-body">
+        <form action="/admin/student/save" method="post">
+            <div class="form-group">
+                <label>学号</label>
+                <input type="text" name="student.student_no" class="form-control" >
+                #if(studentNoMsg)
+                <div class="text-danger">#(studentNoMsg)</div>
+                #end
+            </div>
+            <div class="form-group">
+                <label>姓名</label>
+                <input type="text" name="student.name" class="form-control" >
+                #if(nameMsg)
+                <div class="text-danger">#(nameMsg)</div>
+                #end
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" name="student.password" class="form-control" >
+                #if(passwordMsg)
+                <div class="text-danger">#(passwordMsg)</div>
+                #end
+            </div>
+            <div class="form-group">
+                <label>性别</label>
+                <select name="student.gender" class="form-control">
+                    <option value="M">男</option>
+                    <option value="F">女</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>年龄</label>
+                <input type="number" name="student.age" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>邮箱</label>
+                <input type="email" name="student.email" class="form-control">
+                #if(emailMsg)
+                <div class="text-danger">#(emailMsg)</div>
+                #end
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+            <a href="/admin/student" class="btn btn-secondary">返回</a>
+        </form>
+    </div>
+</div>
+#end 

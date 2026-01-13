@@ -1,0 +1,40 @@
+#@admin_layout()
+#define main()
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title float-left">成绩管理</h3>
+        <a href="/admin/score/add" class="btn btn-primary float-right">添加成绩</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>学号</th>
+                    <th>学生姓名</th>
+                    <th>课程名称</th>
+                    <th>成绩</th>
+                    <th>学期</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                #for(score : scorePage.getList())
+                <tr>
+                    <td>#(score.student_no)</td>
+                    <td>#(score.student_name)</td>
+                    <td>#(score.course_name)</td>
+                    <td>#(score.score)</td>
+                    <td>#(score.semester)</td>
+                    <td>
+                        <a href="/admin/score/edit/#(score.id)" class="btn btn-sm btn-info">编辑</a>
+                        <a href="/admin/score/delete/#(score.id)" class="btn btn-sm btn-danger" 
+                           onclick="return confirm('确定要删除吗？')">删除</a>
+                    </td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+
+    </div>
+</div>
+#end 

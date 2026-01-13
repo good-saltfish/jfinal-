@@ -1,0 +1,51 @@
+#@admin_layout()
+#define main()
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title float-left">课程管理</h3>
+        <a href="/admin/course/add" class="btn btn-primary float-right">添加课程</a>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>课程编号</th>
+                    <th>课程名称</th>
+                    <th>学分</th>
+                    <th>任课教师</th>
+                    <th>上课时间</th>
+                    <th>上课地点</th>
+                    <th>课程状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                #for(course : coursePage.getList())
+                <tr>
+                    <td>#(course.course_code)</td>
+                    <td>#(course.course_name)</td>
+                    <td>#(course.credit)</td>
+                    <td>#(course.teacher_name)</td>
+                    <td>#(course.class_time)</td>
+                    <td>#(course.classroom)</td>
+                    <td>
+                        #if(course.status == "not_started")
+                        <a >未开课</a>
+                        #elseif(course.status == "in_progress")
+                        <a>进行中</a>
+                        #else
+                        <span >已结束</span>
+                        #end
+                    </td>
+                    <td>
+                        <a href="/admin/course/edit/#(course.id)" class="btn btn-sm btn-info">编辑</a>
+                        <a href="/admin/course/delete/#(course.id)" class="btn btn-sm btn-danger" 
+                           onclick="return confirm('确定要删除吗？')">删除</a>
+                    </td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+    </div>
+</div>
+#end 

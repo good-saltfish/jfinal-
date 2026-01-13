@@ -1,0 +1,197 @@
+#@student_layout()
+#define main()
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="card-title mb-0">通知消息</h3>
+        #if(unreadCount > 0)
+            <span class="badge badge-pulse badge-primary">#(unreadCount) 条未读</span>
+        #end
+    </div>
+    <div class="card-body">
+        <div class="notification-list">
+            #if(notificationPage.getList().size() == 0)
+                <div class="text-center text-muted py-5 empty-state">
+                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                    <p>暂无通知消息</p>
+                </div>
+            #else
+                #for(notification : notificationPage.getList())
+                    <div class="notification-item #if(!notification.is_read)unread#end" 
+                         onclick="window.location.href='/student/notification/detail/#(notification.id)'">
+                        <div class="d-flex align-items-center">
+                            <div class="notification-icon mr-3">
+                                #if(notification.type == "info")
+                                    <i class="fas fa-info-circle text-info"></i>
+                                #elseif(notification.type == "warning")
+                                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                                #elseif(notification.type == "success")
+                                    <i class="fas fa-check-circle text-success"></i>
+                                #elseif(notification.type == "danger")
+                                    <i class="fas fa-times-circle text-danger"></i>
+                                #else
+                                    <i class="fas fa-bell text-primary"></i>
+                                #end
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="notification-header">
+                                    <h5 class="mb-1">#(notification.title)</h5>
+                                    <span class="notification-time">
+                                        <i class="far fa-clock"></i> 
+                                        #date(notification.created_at, "yyyy-MM-dd HH:mm")
+                                    </span>
+                                </div>
+                                <p class="notification-content mb-0">#(notification.content)</p>
+                            </div>
+                            #if(!notification.is_read)
+                                <div class="unread-indicator"></div>
+                            #end
+                        </div>
+                    </div>
+                #end
+            #end
+        </div>
+        #@paginate(notificationPage.pageNumber, notificationPage.totalPage, "/student/notification?page=")
+    </div>
+</div>
+
+#define css()
+<style>
+.notification-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.notification-item {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.notification-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.notification-item.unread {
+    background: linear-gradient(to right, rgba(13,110,253,0.05), rgba(13,110,253,0.02));
+    border-left: 4px solid #0d6efd;
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.2rem;
+}
+
+.notification-icon i {
+    transition: transform 0.3s ease;
+}
+
+.notification-item:hover .notification-icon i {
+    transform: scale(1.2);
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-time {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.notification-content {
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.unread-indicator {
+    width: 8px;
+    height: 8px;
+    background: #0d6efd;
+    border-radius: 50%;
+    margin-left: 1rem;
+    animation: pulse 2s infinite;
+}
+
+.badge-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.empty-state {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 不同类型通知的颜色 */
+.notification-item.info {
+    border-left-color: #0dcaf0;
+}
+
+.notification-item.warning {
+    border-left-color: #ffc107;
+}
+
+.notification-item.success {
+    border-left-color: #198754;
+}
+
+.notification-item.danger {
+    border-left-color: #dc3545;
+}
+
+/* 分页样式优化 */
+.pagination {
+    margin-top: 2rem;
+}
+
+.page-link {
+    border-radius: 4px;
+    margin: 0 2px;
+    transition: all 0.3s ease;
+}
+
+.page-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+</style>
+#end
+#end

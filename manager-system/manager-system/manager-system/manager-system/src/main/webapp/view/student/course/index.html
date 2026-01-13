@@ -1,0 +1,55 @@
+#@admin_layout()
+#define main()
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">可选课程</h3>
+        <a href="http://localhost:8080/student/" class="layui-btn layui-btn-primary float-right">返回首页</a>
+    </div>
+    <div class="card-body">
+        #if(error)
+        <div class="alert alert-danger">#(error)</div>
+        #end
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>课程编号</th>
+                <th>课程名称</th>
+                <th>任课教师</th>
+                <th>上课时间</th>
+                <th>上课地点</th>
+                <th>学分</th>
+                <th>总人数</th>
+                <th>已选人数</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            #for(course : coursePage2.getList())
+            <tr>
+                <td>#(course.course_code)</td>
+                <td>#(course.course_name)</td>
+                <td>#(course.teacher_name)</td>
+                <td>#(course.class_time)</td>
+                <td>#(course.classroom)</td>
+                <td>#(course.credit)</td>
+                <td>#(course.sum_stu)</td>
+                <td>#(course.have_stu)</td>
+                <td>
+                    #if(course.have_stu == 0)
+                    <form action="http://localhost:8080/student/" style="display: inline;">
+                        <button type="submit" class="btn btn-sm btn-primary">无法选课</button>
+                    </form>
+                    #elseif(course.have_stu !=0)
+                    <form action="/student/course/select/#(course.id)" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-sm btn-primary">选课</button>
+                    </form>
+                    #end
+                </td>
+            </tr>
+            #end
+            </tbody>
+        </table>
+    </div>
+</div>
+#end

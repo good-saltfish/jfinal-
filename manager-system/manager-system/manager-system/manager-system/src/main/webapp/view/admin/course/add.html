@@ -1,0 +1,54 @@
+#@admin_layout()
+#define main()
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">添加课程</h3>
+    </div>
+    <div class="card-body">
+        <form action="/admin/course/save" method="post">
+            <div class="form-group">
+                <label>课程编号</label>
+                <input type="text" name="course.course_code" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>课程名称</label>
+                <input type="text" name="course.course_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>学分</label>
+                <input type="number" step="0.5" name="course.credit" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label>任课教师</label>
+                <select name="course.teacher_id" class="form-control">
+                    #for(teacher : teachers)
+                    <option value="#(teacher.id)">#(teacher.name)</option>
+                    #end
+                </select>
+            </div>
+            <div class="form-group">
+                <label>课程状态</label>
+                <select name="course.status" class="form-control">
+                    <option value="not_started">未开课</option>
+                    <option value="in_progress">进行中</option>
+                    <option value="ended">已结束</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>上课时间</label>
+                <input type="text" name="course.class_time" class="form-control" placeholder="例如：周一 1-2节">
+            </div>
+            <div class="form-group">
+                <label>上课地点</label>
+                <input type="text" name="course.classroom" class="form-control" placeholder="例如：教学楼101">
+            </div>
+            <div class="form-group">
+                <label>课程描述</label>
+                <textarea name="course.description" class="form-control" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+            <a href="/admin/course" class="btn btn-secondary">返回</a>
+        </form>
+    </div>
+</div>
+#end 

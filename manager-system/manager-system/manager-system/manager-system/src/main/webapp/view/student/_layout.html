@@ -1,0 +1,261 @@
+#define student_layout()
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>正方教务管理系统 - 学生端</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <img src="http://jwgl.fafu.edu.cn/(taeflu455bii1qessgar3w55)/logo/logo_jw.png" alt="School Logo0" class="layui-btn layui-btn-primary float-right">
+    <img src="http://jwgl.fafu.edu.cn/(taeflu455bii1qessgar3w55)/logo/logo_school.png" alt="School Logo0" class="layui-btn layui-btn-primary float-right">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+    /* 基础样式 */
+    body {
+        margin: 0;
+        padding: 0;
+        background: #f4f6f9;
+    }
+
+    /* 左侧菜单 */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 240px;
+        background: #00BFFF	;
+        transition: width 0.3s;
+        z-index: 1000;
+    }
+
+    .sidebar.collapsed {
+        width: 64px;
+    }
+
+    /* 头像区域 */
+    .sidebar-header {
+        padding: 20px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-header img {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        border: 2px solid #409EFF;
+        transition: all 0.3s;
+    }
+
+    .sidebar.collapsed .sidebar-header img {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 0;
+    }
+
+    .student-name {
+        color: #fff;
+        font-size: 14px;
+        margin: 0;
+        transition: opacity 0.3s;
+    }
+
+    .sidebar.collapsed .student-name {
+        display: none;
+    }
+
+    /* 菜单列表 */
+    .sidebar-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu-item {
+        position: relative;
+    }
+
+    .menu-link {
+        display: flex;
+        align-items: center;
+        padding: 14px 20px;
+        color: #bfcbd9;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .menu-link:hover {
+        color: #409EFF;
+        background: rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+    }
+
+    .menu-link i {
+        font-size: 16px;
+        width: 24px;
+        text-align: center;
+    }
+
+    .menu-link span {
+        margin-left: 10px;
+        transition: opacity 0.3s;
+    }
+
+    .submenu-icon {
+        margin-left: auto;
+        font-size: 12px;
+        transition: transform 0.3s;
+    }
+
+    .menu-item.active .submenu-icon {
+        transform: rotate(180deg);
+    }
+
+    /* 二级菜单 */
+    .submenu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        background: rgba(0, 0, 0, 0.1);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s;
+    }
+
+    .menu-item.active .submenu {
+        max-height: 300px;
+    }
+
+    .submenu a {
+        display: block;
+        padding: 12px 20px 12px 54px;
+        color: #bfcbd9;
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+
+    .submenu a:hover {
+        color: #409EFF;
+        background: rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+    }
+
+    .submenu a.current {
+        color: #409EFF;
+        background: rgba(64, 158, 255, 0.1);
+    }
+
+    /* 收起状态 */
+    .sidebar.collapsed .menu-link span,
+    .sidebar.collapsed .submenu-icon {
+        display: none;
+    }
+
+    .sidebar.collapsed .menu-link {
+        padding: 14px 20px;
+        justify-content: center;
+    }
+
+    .sidebar.collapsed .submenu {
+        display: none;
+    }
+
+    #notificationMenu .dropdown-item {
+        white-space: normal;
+        padding: 10px 15px;
+    }
+
+    #notificationMenu .dropdown-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    #notificationMenu a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    #notificationMenu a:hover {
+        color: #007bff;
+    }
+
+    </style>
+</head>
+<body>
+    <!-- 左侧菜单 -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+
+            <h5 class="student-name">#(student.name)</h5>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="menu-item">
+                <a href="/student" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="/student/course" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>网上选课</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="/student/score" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>成绩</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="/student/test" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>我的课程</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="/admin/login" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>跳转管理端</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <script>
+    function markNotificationAsRead(id, event) {
+        // 阻止事件冒泡
+        if (event) {
+            event.stopPropagation();
+        }
+
+        $.post('/student/notification/read/' + id, function(result) {
+            if(result.state === "ok") {
+                window.location.href = '/student/notification/detail/' + id;
+            }
+        });
+    }
+
+    // 点击通知项跳转到详情页
+    $(document).on('click', '.notification-item', function(e) {
+        const id = $(this).data('id');
+        if (!id) return;
+
+        if ($(this).hasClass('unread')) {
+            e.preventDefault();
+            markNotificationAsRead(id, e);
+        } else {
+            window.location.href = '/student/notification/detail/' + id;
+        }
+    });
+    </script>
+
+</body>
+</html>
+#end
